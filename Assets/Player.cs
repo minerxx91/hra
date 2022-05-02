@@ -37,6 +37,23 @@ public class Player : MonoBehaviour
 
         move = transform.TransformDirection(move);
         characterController.Move(SPEED * Time.deltaTime * move);
+        
+        if (transform.position.x > 499f)
+        {
+            transform.position = new Vector3(499f, transform.position.y, transform.position.z);
+        }
+        else if(transform.position.x < -499f)
+        {
+            transform.position = new Vector3(-499f, transform.position.y, transform.position.z);
+        }
+        if (transform.position.z < 1f)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, 1f);
+        }
+        else if (transform.position.z > 999f)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, 999f);
+        }
 
         if (!characterController.isGrounded)
             move.y -= 9.8f * Time.deltaTime;
