@@ -5,16 +5,16 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637865925278951890
-    m_Hash: 3403034569
+      ticks: 637866006505365954
+    m_Hash: 3314358205
   m_LockFileStatus:
     m_FilePath: D:/Programy/Unity/Hra/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637865925489647062
-    m_Hash: 1552995671
+      ticks: 637866006505375807
+    m_Hash: 249259023
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_LocalPackages:
@@ -291,10 +291,12 @@ m_ResolvedPackages:
     - 3.0.10
     - 3.0.12
     - 3.0.13
+    - 3.0.14
     compatible:
     - 3.0.12
     - 3.0.13
-    verified: 3.0.13
+    - 3.0.14
+    verified: 3.0.14
   dependencies:
   - name: com.unity.ext.nunit
     version: 1.0.6
@@ -513,10 +515,12 @@ m_ResolvedPackages:
     - 1.1.29
     - 1.1.30
     - 1.1.31
+    - 2.0.1-exp.1
     - 2.0.1-pre.12
     - 2.0.1-pre.18
     compatible:
     - 1.1.31
+    - 2.0.1-exp.1
     - 2.0.1-pre.12
     - 2.0.1-pre.18
     verified: 1.1.31
@@ -3064,6 +3068,7 @@ m_ResolvedPackages:
     - 1.1.0-pre.69
     - 1.2.0
     - 1.3.1
+    - 1.3.2
     compatible:
     - 1.0.1
     - 1.1.0-pre.7
@@ -3075,6 +3080,7 @@ m_ResolvedPackages:
     - 1.1.0-pre.69
     - 1.2.0
     - 1.3.1
+    - 1.3.2
     verified: 1.0.1
   dependencies:
   - name: com.unity.modules.unitywebrequest
