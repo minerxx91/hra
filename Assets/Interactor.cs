@@ -7,6 +7,7 @@ public class Interactor : MonoBehaviour
 {
     public LayerMask interactableLayerMask = 8;
     UnityEvent onInteract;
+    List<GameObject> items = new List<GameObject>();
     void Start()
     {
 
@@ -16,13 +17,14 @@ public class Interactor : MonoBehaviour
     {
         RaycastHit hit;
 
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, interactableLayerMask))
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 100f , interactableLayerMask))
         {
             if (hit.collider.GetComponent<Interactable>())
             {
                 onInteract = hit.collider.GetComponent<Interactable>().onInteract;
                 if (Input.GetMouseButton(0))
                 {
+                    items.Add(hit.collider.gameObject);
                     onInteract.Invoke();
                 }
             }
