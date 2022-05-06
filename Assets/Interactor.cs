@@ -7,10 +7,10 @@ public class Interactor : MonoBehaviour
 {
     public LayerMask interactableLayerMask = 8;
     UnityEvent onInteract;
-    List<GameObject> items = new List<GameObject>();
+    public List<GameObject> items = new List<GameObject>();
     void Start()
     {
-
+        
     }
 
     void Update()
