@@ -7,10 +7,12 @@ public class Interactor : MonoBehaviour
 {
     public LayerMask interactableLayerMask = 8;
     UnityEvent onInteract;
+    Hotbar hotbar;
+    [SerializeField] GameObject hotbarUI;
     public List<GameObject> items = new List<GameObject>();
     void Start()
     {
-        
+        hotbar = hotbarUI.GetComponent<Hotbar>();
     }
 
     void Update()
@@ -24,8 +26,19 @@ public class Interactor : MonoBehaviour
                 onInteract = hit.collider.GetComponent<Interactable>().onInteract;
                 if (Input.GetMouseButton(0))
                 {
-                    items.Add(hit.collider.gameObject);
-                    onInteract.Invoke();
+                    if (hotbar.activeSlot == 0)
+                    {
+                        items.Insert(0, hit.collider.gameObject);
+                    }
+                    else if (hotbar.activeSlot == 1)
+                    {
+                        items.Insert(1, hit.collider.gameObject);
+                    }
+                    else if (hotbar.activeSlot == 2)
+                    {
+                        items.Insert(2, hit.collider.gameObject);
+                    }
+                    //onInteract.Invoke();
                 }
             }
         }

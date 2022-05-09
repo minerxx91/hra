@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,7 @@ public class Hotbar : MonoBehaviour
 {
     [SerializeField] GameObject kamera;
     Interactor interactor;
-    int activeSlot = 0;
+    public int activeSlot = 0;
     [SerializeField] GameObject slot1;
     [SerializeField] GameObject slot2;
     [SerializeField] GameObject slot3;
@@ -24,7 +25,7 @@ public class Hotbar : MonoBehaviour
 
     void Update()
     {
-        if (Input.mouseScrollDelta.y == 1f)
+        if (Input.mouseScrollDelta.y == -1f)
         {
             if (activeSlot == 2)
             {
@@ -32,7 +33,7 @@ public class Hotbar : MonoBehaviour
             }
             else activeSlot++;
         }
-        else if (Input.mouseScrollDelta.y == -1f)
+        else if (Input.mouseScrollDelta.y == 1f)
         {
             if (activeSlot == 0)
             {
@@ -46,9 +47,13 @@ public class Hotbar : MonoBehaviour
             slot1.GetComponent<RawImage>().texture = active;
             slot2.GetComponent<RawImage>().texture = unactive;
             slot3.GetComponent<RawImage>().texture = unactive;
-            if (interactor.items.Count > 0)
+            try
             {
-                item1.GetComponent<RawImage>().texture = Resources.Load<Texture2D>(interactor.items[activeSlot].name);
+                item1.GetComponent<RawImage>().texture = Resources.Load<Texture2D>(interactor.items[0].name);
+            }
+            catch (Exception)
+            {
+
             }
         }
         else if (activeSlot == 1)
@@ -56,12 +61,28 @@ public class Hotbar : MonoBehaviour
             slot2.GetComponent<RawImage>().texture = active;
             slot1.GetComponent<RawImage>().texture = unactive;
             slot3.GetComponent<RawImage>().texture = unactive;
+            try
+            {
+                item2.GetComponent<RawImage>().texture = Resources.Load<Texture2D>(interactor.items[1].name);
+            }
+            catch (Exception)
+            {
+
+            }
         }
         else
         {
             slot3.GetComponent<RawImage>().texture = active;
             slot1.GetComponent<RawImage>().texture = unactive;
             slot2.GetComponent<RawImage>().texture = unactive;
+            try
+            {
+                item3.GetComponent<RawImage>().texture = Resources.Load<Texture2D>(interactor.items[2].name);
+            }
+            catch (Exception)
+            {
+
+            }
         }
     }
 }
