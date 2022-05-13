@@ -10,9 +10,11 @@ public class Player : MonoBehaviour
     Vector3 move;
     Vector3 kameraRotation;
     Vector3 rotate;
+    Animator animator;
     CharacterController characterController;
     void Start()
     {
+        animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -34,6 +36,17 @@ public class Player : MonoBehaviour
         }
 
         kamera.transform.eulerAngles -= kameraRotation;
+
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            animator.SetBool("isRunning", true);
+            SPEED = 10f;
+        }
+        else
+        {
+            animator.SetBool("isRunning", false);
+            SPEED = 5f;
+        }
 
         move = transform.TransformDirection(move);
         characterController.Move(SPEED * Time.deltaTime * move);
@@ -59,5 +72,11 @@ public class Player : MonoBehaviour
             move.y -= 9.8f * Time.deltaTime;
         else
             move.y = 0f;
+
+        if (move.x == 0 && move.z == 0)
+        {
+            animator.SetBool("isWalking", false);
+        }
+        else animator.SetBool("isWalking", true);
     }
 }
