@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
     [SerializeField] Camera kamera;
     [SerializeField] float SPEED = 10f;
     [SerializeField] float ROTATIONSPEED = 300f;
+    [SerializeField] Image mask;
+    float fill = 1;
+    bool canRun;
     Vector3 move;
     Vector3 kameraRotation;
     Vector3 rotate;
@@ -37,16 +41,24 @@ public class Player : MonoBehaviour
 
         kamera.transform.eulerAngles -= kameraRotation;
 
-        if (Input.GetKey(KeyCode.LeftShift))
+        if(fill > 0.3f && Input.GetKeyDown(KeyCode.LeftShift)) canRun = true;
+        else if(fill == 0) canRun = false;
+
+        if (Input.GetKey(KeyCode.LeftShift) && canRun)
         {
             animator.SetBool("isRunning", true);
             SPEED = 10f;
+            fill -= Time.deltaTime/10;
+            if (fill < 0f) fill = 0f;
         }
         else
         {
             animator.SetBool("isRunning", false);
             SPEED = 5f;
+            fill += Time.deltaTime/5;
+            if (fill > 1f) fill = 1f;
         }
+        mask.fillAmount = fill;
 
         move = transform.TransformDirection(move);
         characterController.Move(SPEED * Time.deltaTime * move);
@@ -78,5 +90,6 @@ public class Player : MonoBehaviour
             animator.SetBool("isWalking", false);
         }
         else animator.SetBool("isWalking", true);
+
     }
 }
