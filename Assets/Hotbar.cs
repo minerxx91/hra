@@ -47,42 +47,33 @@ public class Hotbar : MonoBehaviour
             slot1.GetComponent<RawImage>().texture = active;
             slot2.GetComponent<RawImage>().texture = unactive;
             slot3.GetComponent<RawImage>().texture = unactive;
-            try
+            if (interactor.items[0].tag != "Car" && interactor.items[0] != GameObject.Find("GameObject"))
             {
                 item1.GetComponent<RawImage>().texture = Resources.Load<Texture2D>(interactor.items[0].name);
             }
-            catch (Exception)
-            {
-
-            }
+            else item1.GetComponent<RawImage>().texture = Resources.Load<Texture2D>("slotBorder");
         }
         else if (activeSlot == 1)
         {
             slot2.GetComponent<RawImage>().texture = active;
             slot1.GetComponent<RawImage>().texture = unactive;
             slot3.GetComponent<RawImage>().texture = unactive;
-            try
+            if (interactor.items[1] != GameObject.Find("GameObject (1)"))
             {
                 item2.GetComponent<RawImage>().texture = Resources.Load<Texture2D>(interactor.items[1].name);
             }
-            catch (Exception)
-            {
-
-            }
+            else item2.GetComponent<RawImage>().texture = Resources.Load<Texture2D>("slotBorder");
         }
         else
         {
             slot3.GetComponent<RawImage>().texture = active;
             slot1.GetComponent<RawImage>().texture = unactive;
             slot2.GetComponent<RawImage>().texture = unactive;
-            try
+            if (interactor.items[2] != GameObject.Find("GameObject (2)"))
             {
                 item3.GetComponent<RawImage>().texture = Resources.Load<Texture2D>(interactor.items[2].name);
             }
-            catch (Exception)
-            {
-
-            }
+            else item3.GetComponent<RawImage>().texture = Resources.Load<Texture2D>("slotBorder");
         }
     }
 }

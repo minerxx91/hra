@@ -57,56 +57,56 @@
     <Analyzer Include="D:\Programy\2022.2.0a9\Editor\Data\Tools\Unity.SourceGenerators\Unity.SourceGenerators.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\PostProcessingBehaviour.cs" />
     <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Components\FxaaComponent.cs" />
-    <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Models\BloomModel.cs" />
-    <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Components\BuiltinDebugViewsComponent.cs" />
     <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Models\BuiltinDebugViewsModel.cs" />
-    <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Attributes\MinAttribute.cs" />
-    <Compile Include="Assets\Hotbar.cs" />
     <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Models\MotionBlurModel.cs" />
     <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Utils\RenderTextureFactory.cs" />
-    <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Components\FogComponent.cs" />
-    <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Components\DitheringComponent.cs" />
     <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Components\BloomComponent.cs" />
-    <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Components\ScreenSpaceReflectionComponent.cs" />
-    <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Models\FogModel.cs" />
-    <Compile Include="Assets\Materials\DreamForestTree\Script\ScrollUVWater.cs" />
-    <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Models\AmbientOcclusionModel.cs" />
     <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Utils\ColorGradingCurve.cs" />
-    <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Attributes\GetSetAttribute.cs" />
-    <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Components\TaaComponent.cs" />
-    <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Utils\GraphicsUtils.cs" />
     <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Attributes\TrackballAttribute.cs" />
-    <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Components\EyeAdaptationComponent.cs" />
     <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Models\DepthOfFieldModel.cs" />
     <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Models\AntialiasingModel.cs" />
     <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Models\ScreenSpaceReflectionModel.cs" />
     <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Models\ColorGradingModel.cs" />
-    <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Models\DitheringModel.cs" />
     <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Components\ChromaticAberrationComponent.cs" />
     <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Components\AmbientOcclusionComponent.cs" />
     <Compile Include="Assets\Materials\DreamForestTree\Script\FreeCam.cs" />
     <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Models\VignetteModel.cs" />
-    <Compile Include="Assets\Interactor.cs" />
-    <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\PostProcessingContext.cs" />
-    <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Models\ChromaticAberrationModel.cs" />
-    <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Attributes\TrackballGroupAttribute.cs" />
-    <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Components\DepthOfFieldComponent.cs" />
     <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Components\MotionBlurComponent.cs" />
     <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Components\VignetteComponent.cs" />
     <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Components\UserLutComponent.cs" />
-    <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\PostProcessingModel.cs" />
-    <Compile Include="Assets\Player.cs" />
-    <Compile Include="Assets\Interactable.cs" />
     <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Models\UserLutModel.cs" />
     <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Models\EyeAdaptationModel.cs" />
     <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Utils\MaterialFactory.cs" />
     <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Components\GrainComponent.cs" />
     <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Components\ColorGradingComponent.cs" />
     <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\PostProcessingComponent.cs" />
-    <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Models\GrainModel.cs" />
     <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\PostProcessingProfile.cs" />
+    <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\PostProcessingBehaviour.cs" />
+    <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Models\BloomModel.cs" />
+    <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Components\BuiltinDebugViewsComponent.cs" />
+    <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Attributes\MinAttribute.cs" />
+    <Compile Include="Assets\Hotbar.cs" />
+    <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Components\FogComponent.cs" />
+    <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Components\DitheringComponent.cs" />
+    <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Components\ScreenSpaceReflectionComponent.cs" />
+    <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Models\FogModel.cs" />
+    <Compile Include="Assets\Materials\DreamForestTree\Script\ScrollUVWater.cs" />
+    <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Models\AmbientOcclusionModel.cs" />
+    <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Attributes\GetSetAttribute.cs" />
+    <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Components\TaaComponent.cs" />
+    <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Utils\GraphicsUtils.cs" />
+    <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Components\EyeAdaptationComponent.cs" />
+    <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Models\DitheringModel.cs" />
+    <Compile Include="Assets\Interactor.cs" />
+    <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\PostProcessingContext.cs" />
+    <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Models\ChromaticAberrationModel.cs" />
+    <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Attributes\TrackballGroupAttribute.cs" />
+    <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Components\DepthOfFieldComponent.cs" />
+    <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\PostProcessingModel.cs" />
+    <Compile Include="Assets\Player.cs" />
+    <Compile Include="Assets\Interactable.cs" />
+    <Compile Include="Assets\Materials\DreamForestTree\PostProcessing\Runtime\Models\GrainModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Materials\DreamForestTree\PostProcessing\Resources\Shaders\ScreenSpaceReflection.shader" />
@@ -784,14 +784,17 @@
     <Reference Include="Unity.VisualScripting.SettingsProvider.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.SettingsProvider.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.TestTools.CodeCoverage.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.TestTools.CodeCoverage.Editor.dll</HintPath>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Performance.Profile-Analyzer.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Performance.Profile-Analyzer.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PlasticSCM.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Performance.Profile-Analyzer.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.Performance.Profile-Analyzer.Editor.dll</HintPath>
+    <Reference Include="Unity.TestTools.CodeCoverage.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.TestTools.CodeCoverage.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TestTools.CodeCoverage.Editor.OpenCover.Model">
       <HintPath>Library\ScriptAssemblies\Unity.TestTools.CodeCoverage.Editor.OpenCover.Model.dll</HintPath>
@@ -802,20 +805,20 @@
     <Reference Include="Unity.Postprocessing.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Postprocessing.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Timeline.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.Timeline.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.VisualScripting.State.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.State.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.Shared.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Shared.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Timeline.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Timeline.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.VisualStudio.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.TextMeshPro">
-      <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
+    <Reference Include="UnityEditor.UI">
+      <HintPath>Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll</HintPath>
@@ -823,23 +826,20 @@
     <Reference Include="Unity.VisualScripting.Core">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Core.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Rider.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.Rider.Editor.dll</HintPath>
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.Core.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Core.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.VSCode.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
+    <Reference Include="Unity.Rider.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Rider.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.State">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.State.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEditor.UI">
-      <HintPath>Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
+    <Reference Include="Unity.VSCode.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.Flow">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Flow.dll</HintPath>
