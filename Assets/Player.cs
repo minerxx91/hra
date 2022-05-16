@@ -41,44 +41,27 @@ public class Player : MonoBehaviour
 
         kamera.transform.eulerAngles -= kameraRotation;
 
-        if(fill > 0.3f && Input.GetKeyDown(KeyCode.LeftShift)) canRun = true;
-        else if(fill == 0) canRun = false;
+        if (fill > 0.3f && Input.GetKeyDown(KeyCode.LeftShift)) canRun = true;
+        else if (fill == 0) canRun = false;
 
         if (Input.GetKey(KeyCode.LeftShift) && canRun)
         {
             animator.SetBool("isRunning", true);
             SPEED = 10f;
-            fill -= Time.deltaTime/10;
+            fill -= Time.deltaTime / 10;
             if (fill < 0f) fill = 0f;
         }
         else
         {
             animator.SetBool("isRunning", false);
             SPEED = 5f;
-            fill += Time.deltaTime/5;
+            fill += Time.deltaTime / 5;
             if (fill > 1f) fill = 1f;
         }
         mask.fillAmount = fill;
 
         move = transform.TransformDirection(move);
         characterController.Move(SPEED * Time.deltaTime * move);
-        
-        if (transform.position.x > 499f)
-        {
-            transform.position = new Vector3(499f, transform.position.y, transform.position.z);
-        }
-        else if(transform.position.x < -499f)
-        {
-            transform.position = new Vector3(-499f, transform.position.y, transform.position.z);
-        }
-        if (transform.position.z < 1f)
-        {
-            transform.position = new Vector3(transform.position.x, transform.position.y, 1f);
-        }
-        else if (transform.position.z > 999f)
-        {
-            transform.position = new Vector3(transform.position.x, transform.position.y, 999f);
-        }
 
         if (!characterController.isGrounded)
             move.y -= 9.8f * Time.deltaTime;
@@ -91,5 +74,13 @@ public class Player : MonoBehaviour
         }
         else animator.SetBool("isWalking", true);
 
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.name == "Collider")
+        {
+            characterController.Move(-move * Time.deltaTime * SPEED);
+        }
     }
 }

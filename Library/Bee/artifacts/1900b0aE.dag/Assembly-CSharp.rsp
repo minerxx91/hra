@@ -119,6 +119,7 @@
 -define:ENABLE_TIMELINE
 -define:ENABLE_LEGACY_INPUT_MANAGER
 -define:UNITY_POST_PROCESSING_STACK_V2
+-define:PROBUILDER_EXPERIMENTAL_FEATURES
 -define:CSHARP_7_OR_LATER
 -define:CSHARP_7_3_OR_NEWER
 -r:"D:/Programy/2022.2.0a9/Editor/Data/Managed/UnityEngine/UnityEditor.CoreModule.dll"
@@ -356,6 +357,7 @@
 "Assets/Hotbar.cs"
 "Assets/Interactable.cs"
 "Assets/Interactor.cs"
+"Assets/Jason.cs"
 "Assets/Materials/DreamForestTree/PostProcessing/Runtime/Attributes/GetSetAttribute.cs"
 "Assets/Materials/DreamForestTree/PostProcessing/Runtime/Attributes/MinAttribute.cs"
 "Assets/Materials/DreamForestTree/PostProcessing/Runtime/Attributes/TrackballAttribute.cs"
