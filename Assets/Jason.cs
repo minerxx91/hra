@@ -1,28 +1,64 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Jason : MonoBehaviour
 {
-    CharacterController characterController;
-    [SerializeField] float SPEED = 10f;
-    Vector3 move;
-    Vector2 target;
+    [SerializeField] private Transform playerPosition;
+    public Vector3 walkPoint;
+    bool walkPointSet;
+    LayerMask whatIsPlayer;
+
+    public float timeBetweenAttacks;
+    bool alreadyAttacked;
+    public float moveRange;
+
+    public float sightRange, attackRange;
+    public bool playerInSightRange, playerInAttackRange;
+
+    private NavMeshAgent navMeshAgent;
+
+    private void Patroling()
+    {
+        if (!walkPointSet)
+        {
+            walkPoint = new Vector3(Random.Range(transform.position.x - moveRange, transform.position.x + moveRange), transform.position.y, Random.Range(transform.position.z - moveRange, transform.position.z + moveRange));
+            walkPointSet = true;
+        }
+        else
+        {
+            navMeshAgent.destination = walkPoint;
+        }
+    }
+
+    private void Chasing()
+    {
+        walkPoint = playerPosition.position;
+        navMeshAgent.destination = walkPoint;
+    }
+
+    private void Attacking()
+    {
+
+    }
+
     void Start()
     {
-        characterController = GetComponent<CharacterController>();
-        target = new Vector2(Random.Range(0f, 1000f), Random.Range(0f, 1000f));
+        navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
     void Update()
     {
-        move = new Vector3(Random.Range(0f,1f), 0f, Random.Range(0f, 1f));
+        if (transform.position.x-2 < walkPoint.x && transform.position.x + 2 > walkPoint.x && transform.position.z == walkPoint.z) walkPointSet = false;
+        if (walkPoint.x < 5 || walkPoint.x > 995 || walkPoint.z < 5 || walkPoint.z > 995) walkPointSet = false;
 
-        if (!characterController.isGrounded)
-        {
-            move.y -= 9.8f;
-        }
 
-        characterController.Move(SPEED * Time.deltaTime * move);
+        /*playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+        playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);*/
+
+        if (!playerInAttackRange && !playerInSightRange) Patroling();
+        else if (!playerInAttackRange && playerInSightRange) Chasing();
+        else if (playerInAttackRange && playerInSightRange) Attacking();
     }
 }
