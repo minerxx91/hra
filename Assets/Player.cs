@@ -41,8 +41,10 @@ public class Player : MonoBehaviour
 
         kamera.transform.eulerAngles -= kameraRotation;
 
-        if (fill > 0.3f && Input.GetKeyDown(KeyCode.LeftShift)) canRun = true;
+        if (fill > 0.3f && Input.GetKey(KeyCode.LeftShift)) canRun = true;
         else if (fill == 0) canRun = false;
+
+        if (Input.GetKey(KeyCode.S)) canRun = false;
 
         if (Input.GetKey(KeyCode.LeftShift) && canRun)
         {
@@ -74,13 +76,5 @@ public class Player : MonoBehaviour
         }
         else animator.SetBool("isWalking", true);
 
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject.name == "Collider")
-        {
-            characterController.Move(-move * Time.deltaTime * SPEED);
-        }
     }
 }

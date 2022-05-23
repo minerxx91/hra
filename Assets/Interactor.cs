@@ -1,17 +1,17 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class Interactor : MonoBehaviour
 {
     public LayerMask interactableLayerMask = 8;
     UnityEvent onInteract;
     Hotbar hotbar;
-    public GameObject[] items = {};
+    public GameObject[] items = { };
     //public Dictionary<int, GameObject> items = new Dictionary<int ,GameObject>(3);
     [SerializeField] GameObject hotbarUI;
+    [SerializeField] GameObject player;
+    GameObject lastCollider;
     void Start()
     {
         hotbar = hotbarUI.GetComponent<Hotbar>();
@@ -21,33 +21,54 @@ public class Interactor : MonoBehaviour
     {
         RaycastHit hit;
 
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 50f , interactableLayerMask))
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 50f, interactableLayerMask))
         {
             if (hit.collider.GetComponent<Interactable>())
             {
                 onInteract = hit.collider.GetComponent<Interactable>().onInteract;
+
+                if (hit.collider.gameObject.transform.GetChild(0).gameObject.name == "Canvas")
+                {
+                    hit.collider.gameObject.transform.GetChild(0).gameObject.SetActive(true);
+                    lastCollider = hit.collider.gameObject;
+                    hit.collider.gameObject.transform.GetChild(0).gameObject.transform.LookAt(player.transform.position);
+                    hit.collider.gameObject.transform.GetChild(0).gameObject.transform.eulerAngles = new Vector3(0f, hit.collider.gameObject.transform.GetChild(0).gameObject.transform.eulerAngles.y, 0f);
+                }
+
                 if (Input.GetMouseButton(0))
                 {
-                    try
+                    if (hit.collider.gameObject.name == "Pick-Up old" && items[hotbar.activeSlot].tag == "Jerry Can")
                     {
-                        if (hit.collider.gameObject.name == "Pick-Up old" && items[hotbar.activeSlot].tag == "Jerry Can")
+                        hit.collider.gameObject.SetActive(false);
+                        onInteract.Invoke();
+                        items[hotbar.activeSlot].gameObject.SetActive(false);
+                        /*foreach (GameObject item in items)
                         {
-                            hit.collider.gameObject.SetActive(false);
-                            onInteract.Invoke();
-                        }
+                            print(item.gameObject.name);
+                            if (item.gameObject.tag == "Jerry Can")
+                            {
+                                item.gameObject.SetActive(false);
+                            }
+                        }*/
                     }
-                    catch (Exception) { };
-                    if(hit.collider.gameObject.tag == "Jerry Can")
+
+                    if (hit.collider.gameObject.tag == "Jerry Can")
                     {
                         onInteract.Invoke();
-                        hit.collider.gameObject.transform.localPosition = new Vector3(0f, 1.22f, 0.29f);
                         hit.collider.gameObject.transform.localRotation = Quaternion.Euler(180f, 0f, 0f);
+                        hit.collider.gameObject.transform.localPosition = new Vector3(0f, 1.22f, 0.29f);
+                        items[hotbar.activeSlot].gameObject.transform.parent = null;
+                        items[hotbar.activeSlot].gameObject.transform.position = new Vector3(hit.collider.transform.position.x, 0f, hit.collider.transform.position.z);
+                        items[hotbar.activeSlot].gameObject.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
                     }
                     else if (hit.collider.gameObject.tag == "Spray")
                     {
                         onInteract.Invoke();
                         hit.collider.gameObject.transform.localPosition = new Vector3(0f, -3.356f, -10.303f);
                         hit.collider.gameObject.transform.localRotation = Quaternion.Euler(180f, 0f, 0f);
+                        items[hotbar.activeSlot].gameObject.transform.parent = null;
+                        items[hotbar.activeSlot].gameObject.transform.position = new Vector3(hit.collider.transform.position.x, 0f, hit.collider.transform.position.z);
+                        items[hotbar.activeSlot].gameObject.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
                     }
                     else if (hit.collider.gameObject.tag == "Bat")
                     {
@@ -70,7 +91,15 @@ public class Interactor : MonoBehaviour
                 }
             }
         }
-        if(hotbar.activeSlot == 0)
+        else
+        {
+            try
+            {
+                lastCollider.transform.GetChild(0).gameObject.SetActive(false);
+            }
+            catch{ }
+        }
+        if (hotbar.activeSlot == 0)
         {
             items[0].gameObject.SetActive(true);
             items[1].gameObject.SetActive(false);
