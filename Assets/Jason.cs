@@ -55,7 +55,7 @@ public class Jason : MonoBehaviour
     {
         if (transform.position.x-2 < walkPoint.x && transform.position.x + 2 > walkPoint.x && transform.position.z == walkPoint.z) walkPointSet = false;
         if (walkPoint.x < 5 || walkPoint.x > 995 || walkPoint.z < 5 || walkPoint.z > 995) walkPointSet = false;
-        print(navMeshAgent.velocity.magnitude);
+        //print(navMeshAgent.velocity.magnitude);
         
 
 
