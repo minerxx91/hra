@@ -25,6 +25,7 @@ public class Jason : MonoBehaviour
         {
             walkPoint = new Vector3(Random.Range(transform.position.x - moveRange, transform.position.x + moveRange), transform.position.y, Random.Range(transform.position.z - moveRange, transform.position.z + moveRange));
             walkPointSet = true;
+            walkTime = 0f;
         }
         else
         {
@@ -43,6 +44,8 @@ public class Jason : MonoBehaviour
 
     }
 
+     float walkTime = 0f;
+
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
@@ -52,6 +55,8 @@ public class Jason : MonoBehaviour
     {
         if (transform.position.x-2 < walkPoint.x && transform.position.x + 2 > walkPoint.x && transform.position.z == walkPoint.z) walkPointSet = false;
         if (walkPoint.x < 5 || walkPoint.x > 995 || walkPoint.z < 5 || walkPoint.z > 995) walkPointSet = false;
+        print(navMeshAgent.velocity.magnitude);
+        
 
 
         /*playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
@@ -60,5 +65,8 @@ public class Jason : MonoBehaviour
         if (!playerInAttackRange && !playerInSightRange) Patroling();
         else if (!playerInAttackRange && playerInSightRange) Chasing();
         else if (playerInAttackRange && playerInSightRange) Attacking();
+        if (walkTime > 1 && navMeshAgent.velocity.magnitude == 0) walkPointSet = false;
+
+        walkTime += Time.deltaTime;
     }
 }

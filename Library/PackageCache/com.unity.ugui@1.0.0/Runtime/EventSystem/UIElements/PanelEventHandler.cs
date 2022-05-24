@@ -37,6 +37,11 @@ namespace UnityEngine.UIElements
         private GameObject selectableGameObject => m_Panel?.selectableGameObject;
         private EventSystem eventSystem => UIElementsRuntimeUtility.activeEventSystem as EventSystem;
 
+        private bool isCurrentFocusedPanel => m_Panel != null && eventSystem != null &&
+                                              eventSystem.currentSelectedGameObject == selectableGameObject;
+
+        private Focusable currentFocusedElement => m_Panel?.focusController.GetLeafFocusedElement();
+
         private readonly PointerEvent m_PointerEvent = new PointerEvent();
 
         protected override void OnEnable()
@@ -186,10 +191,12 @@ namespace UnityEngine.UIElements
                 return;
 
             // Allow KeyDown/KeyUp events to be processed before navigation events.
-            ProcessImguiEvents(true);
+            var target = currentFocusedElement ?? m_Panel.visualTree;
+            ProcessImguiEvents(target);
 
-            using (var e = NavigationSubmitEvent.GetPooled())
+            using (var e = NavigationSubmitEvent.GetPooled(s_Modifiers))
             {
+                e.target = target;
                 SendEvent(e, eventData);
             }
         }
@@ -200,10 +207,12 @@ namespace UnityEngine.UIElements
                 return;
 
             // Allow KeyDown/KeyUp events to be processed before navigation events.
-            ProcessImguiEvents(true);
+            var target = currentFocusedElement ?? m_Panel.visualTree;
+            ProcessImguiEvents(target);
 
-            using (var e = NavigationCancelEvent.GetPooled())
+            using (var e = NavigationCancelEvent.GetPooled(s_Modifiers))
             {
+                e.target = target;
                 SendEvent(e, eventData);
             }
         }
@@ -214,10 +223,12 @@ namespace UnityEngine.UIElements
                 return;
 
             // Allow KeyDown/KeyUp events to be processed before navigation events.
-            ProcessImguiEvents(true);
+            var target = currentFocusedElement ?? m_Panel.visualTree;
+            ProcessImguiEvents(target);
 
-            using (var e = NavigationMoveEvent.GetPooled(eventData.moveVector))
+            using (var e = NavigationMoveEvent.GetPooled(eventData.moveVector, s_Modifiers))
             {
+                e.target = target;
                 SendEvent(e, eventData);
             }
 
@@ -260,20 +271,23 @@ namespace UnityEngine.UIElements
 
         void Update()
         {
-            if (m_Panel != null && eventSystem != null && eventSystem.currentSelectedGameObject == selectableGameObject)
-                ProcessImguiEvents(true);
+            if (isCurrentFocusedPanel)
+                ProcessImguiEvents(currentFocusedElement ?? m_Panel.visualTree);
         }
 
         void LateUpdate()
         {
             // Empty the Event queue, look for EventModifiers.
-            ProcessImguiEvents(false);
+            ProcessImguiEvents(null);
         }
 
         private Event m_Event = new Event();
         private static EventModifiers s_Modifiers = EventModifiers.None;
 
-        void ProcessImguiEvents(bool isSelected)
+        // Send IMGUI events to given focus-based target, if any, or simply flush the event queue if not.
+        // For uniformity of composite events (keyDown vs navigation), target should remain the same
+        // throughout the entire processing cycle.
+        void ProcessImguiEvents(Focusable target)
         {
             bool first = true;
 
@@ -286,75 +300,78 @@ namespace UnityEngine.UIElements
                 s_Modifiers = first ? m_Event.modifiers : (s_Modifiers | m_Event.modifiers);
                 first = false;
 
-                if (isSelected)
+                if (target != null)
                 {
-                    ProcessKeyboardEvent(m_Event);
-
-                    if (m_Event.type != EventType.Used)
-                        ProcessTabEvent(m_Event);
+                    ProcessKeyboardEvent(m_Event, target);
+                    if (eventSystem.sendNavigationEvents)
+                        ProcessTabEvent(m_Event, target);
                 }
             }
         }
 
-        void ProcessKeyboardEvent(Event e)
+        void ProcessKeyboardEvent(Event e, Focusable target)
         {
             if (e.type == EventType.KeyUp)
             {
                 if (e.character == '\0')
                 {
-                    SendKeyUpEvent(e, e.keyCode, e.modifiers);
+                    SendKeyUpEvent(e, e.keyCode, e.modifiers, target);
                 }
             }
             else if (e.type == EventType.KeyDown)
             {
                 if (e.character == '\0')
                 {
-                    SendKeyDownEvent(e, e.keyCode, e.modifiers);
+                    SendKeyDownEvent(e, e.keyCode, e.modifiers, target);
                 }
                 else
                 {
-                    SendTextEvent(e, e.character, e.modifiers);
+                    SendTextEvent(e, e.character, e.modifiers, target);
                 }
             }
         }
 
         // TODO: add an ITabHandler interface
-        void ProcessTabEvent(Event e)
+        void ProcessTabEvent(Event e, Focusable target)
         {
             if (e.type == EventType.KeyDown && e.character == '\t')
             {
-                SendTabEvent(e, e.shift ? -1 : 1);
+                SendTabEvent(e, e.shift ? NavigationMoveEvent.Direction.Previous : NavigationMoveEvent.Direction.Next, target);
             }
         }
 
-        private void SendTabEvent(Event e, int direction)
+        private void SendTabEvent(Event e, NavigationMoveEvent.Direction direction, Focusable target)
         {
-            using (var ev = NavigationTabEvent.GetPooled(direction))
+            using (var ev = NavigationMoveEvent.GetPooled(direction, s_Modifiers))
             {
+                ev.target = target;
                 SendEvent(ev, e);
             }
         }
 
-        private void SendKeyUpEvent(Event e, KeyCode keyCode, EventModifiers modifiers)
+        private void SendKeyUpEvent(Event e, KeyCode keyCode, EventModifiers modifiers, Focusable target)
         {
             using (var ev = KeyUpEvent.GetPooled('\0', keyCode, modifiers))
             {
+                ev.target = target;
                 SendEvent(ev, e);
             }
         }
 
-        private void SendKeyDownEvent(Event e, KeyCode keyCode, EventModifiers modifiers)
+        private void SendKeyDownEvent(Event e, KeyCode keyCode, EventModifiers modifiers, Focusable target)
         {
             using (var ev = KeyDownEvent.GetPooled('\0', keyCode, modifiers))
             {
+                ev.target = target;
                 SendEvent(ev, e);
             }
         }
 
-        private void SendTextEvent(Event e, char c, EventModifiers modifiers)
+        private void SendTextEvent(Event e, char c, EventModifiers modifiers, Focusable target)
         {
             using (var ev = KeyDownEvent.GetPooled(c, KeyCode.None, modifiers))
             {
+                ev.target = target;
                 SendEvent(ev, e);
             }
         }
