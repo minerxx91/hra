@@ -10,6 +10,9 @@ scopes = {
 	"last_search.D138EA74" = "ref:-9682:"
 	"OpenInspectorPreview.D138EA74" = "0"
 	"currentGroup.D138EA74" = "scene"
+	"last_search.B064B029" = ""
+	"OpenInspectorPreview.B064B029" = "0"
+	"currentGroup.B064B029" = "all"
 }
 providers = {
 	adb = {
@@ -59,9 +62,8 @@ recentSearches = [
 searchItemFavorites = [
 ]
 savedSearchesSortOrder = 0
-showSavedSearchPanel = false
-expandedQueries = [
-]
+showSavedSearchPanel = true
+expandedQueries = [-1765347274 961552606]
 queryBuilder = false
 ignoredProperties = "id;name;classname;imagecontentshash"
 helperWidgetCurrentArea = "all"
