@@ -13,10 +13,11 @@ public class Interactor : MonoBehaviour
     [SerializeField] GameObject player;
     [SerializeField] GameObject models3d;
     GameObject lastCollider;
-    bool empty;
+    Animator animator;
     void Start()
     {
         hotbar = hotbarUI.GetComponent<Hotbar>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -28,15 +29,16 @@ public class Interactor : MonoBehaviour
             {
                 onInteract = hit.collider.GetComponent<Interactable>().onInteract;
 
-                if (hit.collider.gameObject.transform.GetChild(0).gameObject.name == "Canvas")
+                try
                 {
+                    if (hit.collider.gameObject.transform.GetChild(0).gameObject.name == "Canvas")
+                    {
                     hit.collider.gameObject.transform.GetChild(0).gameObject.SetActive(true);
                     lastCollider = hit.collider.gameObject;
                     hit.collider.gameObject.transform.GetChild(0).gameObject.transform.LookAt(player.transform.position);
                     hit.collider.gameObject.transform.GetChild(0).gameObject.transform.eulerAngles = new Vector3(0f, hit.collider.gameObject.transform.GetChild(0).gameObject.transform.eulerAngles.y, 0f);
-                }
-                try
-                {
+                    }
+
                     items[hotbar.activeSlot].transform.GetChild(0).gameObject.SetActive(false);
                 }
                 catch { }
@@ -77,6 +79,22 @@ public class Interactor : MonoBehaviour
                         hit.transform.localPosition = new Vector3(0f, 0.24f, 0.1f);
                         hit.transform.localRotation = Quaternion.Euler(0f, 102f, 0f);
                     }
+                    else if (hit.collider.gameObject.tag == "Door")
+                    {
+                        if (animator.GetBool("close"))
+                        {
+                            print("mam sa otvarat");
+                            animator.SetBool("open", true);
+                            animator.SetBool("close", false);
+                        }
+                        else
+                        {
+                            print("mam sa zatvarat");
+                            animator.SetBool("open", false);
+                            animator.SetBool("close", true);
+                        }
+                    }
+
                     if (hotbar.activeSlot == 0 && hit.collider.gameObject.tag != "Car")
                     {
                         items[0] = hit.collider.gameObject;

@@ -47,7 +47,7 @@ public class Hotbar : MonoBehaviour
             slot1.GetComponent<RawImage>().texture = active;
             slot2.GetComponent<RawImage>().texture = unactive;
             slot3.GetComponent<RawImage>().texture = unactive;
-            if (interactor.items[0].tag != "Car" && interactor.items[0] != GameObject.Find("GameObject"))
+            if (interactor.items[0] != GameObject.Find("GameObject"))
             {
                 item1.GetComponent<RawImage>().texture = Resources.Load<Texture2D>(interactor.items[0].name);
             }
