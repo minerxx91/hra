@@ -21,22 +21,23 @@ public class Jason : MonoBehaviour
 
     private void Patroling()
     {
+        navMeshAgent.speed = 4.5f;
         if (!walkPointSet)
         {
             walkPoint = new Vector3(Random.Range(transform.position.x - moveRange, transform.position.x + moveRange), transform.position.y, Random.Range(transform.position.z - moveRange, transform.position.z + moveRange));
             walkPointSet = true;
             walkTime = 0f;
         }
-        else
-        {
-            navMeshAgent.destination = walkPoint;
-        }
+        navMeshAgent.destination = walkPoint;
+        
     }
 
     private void Chasing()
     {
+        navMeshAgent.speed = 7f;
         walkPoint = playerPosition.position;
         navMeshAgent.destination = walkPoint;
+        walkPointSet = false;
     }
 
     private void Attacking()
@@ -54,18 +55,35 @@ public class Jason : MonoBehaviour
     void Update()
     {
         if (transform.position.x-2 < walkPoint.x && transform.position.x + 2 > walkPoint.x && transform.position.z == walkPoint.z) walkPointSet = false;
-        if (walkPoint.x < 5 || walkPoint.x > 995 || walkPoint.z < 5 || walkPoint.z > 995) walkPointSet = false;
-        //print(navMeshAgent.velocity.magnitude);
+
+        var distance = Vector3.Distance(playerPosition.position, transform.position);
+        /*print("distance: "+distance);
+        print("jason rotation: " + transform.eulerAngles.y);
+        print("speed: " + navMeshAgent.speed);*/
+
+
+        //check if player is in sight range
+        if (distance <= 80)
+        {
+            if (transform.eulerAngles.y > 210 && transform.eulerAngles.y < 330 && (playerPosition.position.x - transform.position.x) < 0) playerInSightRange = true;
+            else if (transform.eulerAngles.y > 30 && transform.eulerAngles.y < 150 && (playerPosition.position.x - transform.position.x) > 0) playerInSightRange = true;
+            else if (transform.eulerAngles.y > 120 && transform.eulerAngles.y < 240 && (playerPosition.position.z - transform.position.z) < 0) playerInSightRange = true;
+            else if (((transform.eulerAngles.y > 300 && transform.eulerAngles.y < 360) || transform.eulerAngles.y < 60) && (playerPosition.position.z - transform.position.z) > 0) playerInSightRange = true;
+            else playerInSightRange = false;
+        }
+        else playerInSightRange = false;
+        if (distance <= 20) playerInSightRange = true;
+
+        //check if player is in attack range
+        if (distance <= 1)
+            playerInAttackRange = true;
+        else playerInAttackRange = false;
         
-
-
-        /*playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
-        playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);*/
 
         if (!playerInAttackRange && !playerInSightRange) Patroling();
         else if (!playerInAttackRange && playerInSightRange) Chasing();
         else if (playerInAttackRange && playerInSightRange) Attacking();
-        if (walkTime > 1 && navMeshAgent.velocity.magnitude == 0) walkPointSet = false;
+        if (walkTime > 2f && navMeshAgent.velocity.magnitude == 0) walkPointSet = false;
 
         walkTime += Time.deltaTime;
     }
