@@ -49,7 +49,7 @@ public class Hotbar : MonoBehaviour
             slot3.GetComponent<RawImage>().texture = unactive;
             if (interactor.items[0] != GameObject.Find("GameObject"))
             {
-                item1.GetComponent<RawImage>().texture = Resources.Load<Texture2D>(interactor.items[0].name);
+                item1.GetComponent<RawImage>().texture = Resources.Load<Texture2D>(interactor.items[0].tag);
             }
             else item1.GetComponent<RawImage>().texture = Resources.Load<Texture2D>("slotBorder");
         }
@@ -60,7 +60,7 @@ public class Hotbar : MonoBehaviour
             slot3.GetComponent<RawImage>().texture = unactive;
             if (interactor.items[1] != GameObject.Find("GameObject (1)"))
             {
-                item2.GetComponent<RawImage>().texture = Resources.Load<Texture2D>(interactor.items[1].name);
+                item2.GetComponent<RawImage>().texture = Resources.Load<Texture2D>(interactor.items[1].tag);
             }
             else item2.GetComponent<RawImage>().texture = Resources.Load<Texture2D>("slotBorder");
         }
@@ -71,7 +71,7 @@ public class Hotbar : MonoBehaviour
             slot2.GetComponent<RawImage>().texture = unactive;
             if (interactor.items[2] != GameObject.Find("GameObject (2)"))
             {
-                item3.GetComponent<RawImage>().texture = Resources.Load<Texture2D>(interactor.items[2].name);
+                item3.GetComponent<RawImage>().texture = Resources.Load<Texture2D>(interactor.items[2].tag);
             }
             else item3.GetComponent<RawImage>().texture = Resources.Load<Texture2D>("slotBorder");
         }

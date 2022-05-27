@@ -12,6 +12,7 @@ public class Interactor : MonoBehaviour
     [SerializeField] GameObject hotbarUI;
     [SerializeField] GameObject player;
     [SerializeField] GameObject models3d;
+    [SerializeField] GameObject hand;
     GameObject lastCollider;
     Animator animator;
     void Start()
@@ -57,7 +58,7 @@ public class Interactor : MonoBehaviour
                         items[hotbar.activeSlot].transform.SetParent(models3d.transform, true);
                         items[hotbar.activeSlot].transform.position = hit.collider.gameObject.transform.position;
                         items[hotbar.activeSlot].transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-                        onInteract.Invoke();
+                        hit.transform.SetParent(hand.transform, true);
                         hit.collider.gameObject.transform.localRotation = Quaternion.Euler(180f, 0f, 0f);
                         hit.collider.gameObject.transform.localPosition = new Vector3(0f, 1.22f, 0.29f);
                     }
@@ -66,7 +67,7 @@ public class Interactor : MonoBehaviour
                         items[hotbar.activeSlot].transform.SetParent(models3d.transform, true);
                         items[hotbar.activeSlot].transform.position = hit.collider.gameObject.transform.position;
                         items[hotbar.activeSlot].transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-                        onInteract.Invoke();
+                        hit.transform.SetParent(hand.transform, true);
                         hit.collider.gameObject.transform.localPosition = new Vector3(0, 1.12f, 0.039f);
                         hit.collider.gameObject.transform.localRotation = Quaternion.Euler(180f, 0f, 0f);
                     }
@@ -75,7 +76,7 @@ public class Interactor : MonoBehaviour
                         items[hotbar.activeSlot].transform.SetParent(models3d.transform, true);
                         items[hotbar.activeSlot].transform.position = hit.collider.gameObject.transform.position;
                         items[hotbar.activeSlot].transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-                        onInteract.Invoke();
+                        hit.transform.SetParent(hand.transform, true);
                         hit.transform.localPosition = new Vector3(0f, 0.24f, 0.1f);
                         hit.transform.localRotation = Quaternion.Euler(0f, 102f, 0f);
                     }
@@ -83,13 +84,11 @@ public class Interactor : MonoBehaviour
                     {
                         if (animator.GetBool("close"))
                         {
-                            print("mam sa otvarat");
                             animator.SetBool("open", true);
                             animator.SetBool("close", false);
                         }
                         else
                         {
-                            print("mam sa zatvarat");
                             animator.SetBool("open", false);
                             animator.SetBool("close", true);
                         }

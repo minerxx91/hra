@@ -6,10 +6,15 @@ using UnityEngine.Events;
 public class Door : MonoBehaviour
 {
     public LayerMask interactableLayerMask = 8;
-    Animator animator;
+    [SerializeField] GameObject[] pivots;
+    [SerializeField] List<Animator> animators = new List<Animator>();
     void Start()
     {
-        animator = GetComponent<Animator>();
+        for (int i = 0; i < pivots.Length; i++)
+        {
+            animators.Add(pivots[i].GetComponent<Animator>());
+            animators[i].enabled = false;
+        }
     }
 
     void Update()
@@ -19,17 +24,21 @@ public class Door : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
-                if (hit.collider.gameObject.tag == "Door")
+                for (int i = 0; i < pivots.Length; i++)
                 {
-                    if (animator.GetBool("isClosed"))
+                    if (hit.collider.gameObject.transform.parent.name == pivots[i].name)
                     {
-                        animator.SetBool("isOpen", true);
-                        animator.SetBool("isClosed", false);
-                    }
-                    else
-                    {
-                        animator.SetBool("isClosed", true);
-                        animator.SetBool("isOpen", false);
+                        animators[i].enabled = true;
+                        if (animators[i].GetBool("isClosed"))
+                        {
+                            animators[i].SetBool("isOpen", true);
+                            animators[i].SetBool("isClosed", false);
+                        }
+                        else
+                        {
+                            animators[i].SetBool("isClosed", true);
+                            animators[i].SetBool("isOpen", false);
+                        }
                     }
                 }
             }
