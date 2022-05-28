@@ -26,20 +26,24 @@ public class Door : MonoBehaviour
             {
                 for (int i = 0; i < pivots.Length; i++)
                 {
-                    if (hit.collider.gameObject.transform.parent.name == pivots[i].name)
+                    try
                     {
-                        animators[i].enabled = true;
-                        if (animators[i].GetBool("isClosed"))
+                        if (hit.collider.gameObject.transform.parent.name == pivots[i].name)
                         {
-                            animators[i].SetBool("isOpen", true);
-                            animators[i].SetBool("isClosed", false);
-                        }
-                        else
-                        {
-                            animators[i].SetBool("isClosed", true);
-                            animators[i].SetBool("isOpen", false);
+                            animators[i].enabled = true;
+                            if (animators[i].GetBool("isClosed"))
+                            {
+                                animators[i].SetBool("isOpen", true);
+                                animators[i].SetBool("isClosed", false);
+                            }
+                            else
+                            {
+                                animators[i].SetBool("isClosed", true);
+                                animators[i].SetBool("isOpen", false);
+                            }
                         }
                     }
+                    catch { }
                 }
             }
         }

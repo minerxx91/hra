@@ -80,31 +80,31 @@ public class Interactor : MonoBehaviour
                         hit.transform.localPosition = new Vector3(0f, 0.24f, 0.1f);
                         hit.transform.localRotation = Quaternion.Euler(0f, 102f, 0f);
                     }
-                    else if (hit.collider.gameObject.tag == "Door")
-                    {
-                        if (animator.GetBool("close"))
-                        {
-                            animator.SetBool("open", true);
-                            animator.SetBool("close", false);
-                        }
-                        else
-                        {
-                            animator.SetBool("open", false);
-                            animator.SetBool("close", true);
-                        }
-                    }
 
-                    if (hotbar.activeSlot == 0 && hit.collider.gameObject.tag != "Car")
+                    if (hotbar.activeSlot == 0 && hit.collider.gameObject.tag != "Car" && hit.collider.gameObject.name != "Jason")
                     {
                         items[0] = hit.collider.gameObject;
                     }
-                    else if (hotbar.activeSlot == 1 && hit.collider.gameObject.tag != "Car")
+                    else if (hotbar.activeSlot == 1 && hit.collider.gameObject.tag != "Car" && hit.collider.gameObject.name != "Jason")
                     {
                         items[1] = hit.collider.gameObject;
                     }
-                    else if (hotbar.activeSlot == 2 && hit.collider.gameObject.tag != "Car")
+                    else if (hotbar.activeSlot == 2 && hit.collider.gameObject.tag != "Car" && hit.collider.gameObject.name != "Jason")
                     {
                         items[2] = hit.collider.gameObject;
+                    }
+                    
+                    if (items[hotbar.activeSlot].tag == "Spray" && hit.collider.gameObject.name == "Jason")
+                    {
+                        Destroy(items[hotbar.activeSlot]);
+                        items[hotbar.activeSlot] = GameObject.Find(string.Format("GameObject ({0})", hotbar.activeSlot));
+                        GameObject.Find(string.Format("GameObject ({0})", hotbar.activeSlot)).transform.parent = null;
+                    }
+                    else if (items[hotbar.activeSlot].tag == "Bat" && hit.collider.gameObject.name == "Jason")
+                    {
+                        Destroy(items[hotbar.activeSlot]);
+                        items[hotbar.activeSlot] = GameObject.Find(string.Format("GameObject ({0})", hotbar.activeSlot));
+                        GameObject.Find(string.Format("GameObject ({0})", hotbar.activeSlot)).transform.parent = null;
                     }
                 }
             }
@@ -117,23 +117,27 @@ public class Interactor : MonoBehaviour
             }
             catch{ }
         }
-        if (hotbar.activeSlot == 0)
+        try
         {
-            items[0].gameObject.SetActive(true);
-            items[1].gameObject.SetActive(false);
-            items[2].gameObject.SetActive(false);
+            if (hotbar.activeSlot == 0)
+            {
+                items[0].gameObject.SetActive(true);
+                items[1].gameObject.SetActive(false);
+                items[2].gameObject.SetActive(false);
+            }
+            else if (hotbar.activeSlot == 1)
+            {
+                items[0].gameObject.SetActive(false);
+                items[1].gameObject.SetActive(true);
+                items[2].gameObject.SetActive(false);
+            }
+            else if (hotbar.activeSlot == 2)
+            {
+                items[0].gameObject.SetActive(false);
+                items[1].gameObject.SetActive(false);
+                items[2].gameObject.SetActive(true);
+            }
         }
-        else if (hotbar.activeSlot == 1)
-        {
-            items[0].gameObject.SetActive(false);
-            items[1].gameObject.SetActive(true);
-            items[2].gameObject.SetActive(false);
-        }
-        else if (hotbar.activeSlot == 2)
-        {
-            items[0].gameObject.SetActive(false);
-            items[1].gameObject.SetActive(false);
-            items[2].gameObject.SetActive(true);
-        }
+        catch { }
     }
 }

@@ -47,33 +47,54 @@ public class Hotbar : MonoBehaviour
             slot1.GetComponent<RawImage>().texture = active;
             slot2.GetComponent<RawImage>().texture = unactive;
             slot3.GetComponent<RawImage>().texture = unactive;
-            if (interactor.items[0] != GameObject.Find("GameObject"))
+            if (interactor.items[0] == GameObject.Find("GameObject (0)"))
             {
-                item1.GetComponent<RawImage>().texture = Resources.Load<Texture2D>(interactor.items[0].tag);
+                item1.GetComponent<RawImage>().texture = Resources.Load<Texture2D>("slotBorder");
             }
-            else item1.GetComponent<RawImage>().texture = Resources.Load<Texture2D>("slotBorder");
+            else
+            {
+                try
+                {
+                    item1.GetComponent<RawImage>().texture = Resources.Load<Texture2D>(interactor.items[0].tag);
+                }
+                catch { }
+            }
         }
         else if (activeSlot == 1)
         {
             slot2.GetComponent<RawImage>().texture = active;
             slot1.GetComponent<RawImage>().texture = unactive;
             slot3.GetComponent<RawImage>().texture = unactive;
-            if (interactor.items[1] != GameObject.Find("GameObject (1)"))
+            if (interactor.items[1] == GameObject.Find("GameObject (1)"))
             {
-                item2.GetComponent<RawImage>().texture = Resources.Load<Texture2D>(interactor.items[1].tag);
+                item2.GetComponent<RawImage>().texture = Resources.Load<Texture2D>("slotBorder");
             }
-            else item2.GetComponent<RawImage>().texture = Resources.Load<Texture2D>("slotBorder");
+            else
+            {
+                try
+                {
+                    item2.GetComponent<RawImage>().texture = Resources.Load<Texture2D>(interactor.items[1].tag);
+                }
+                catch { }
+            }
         }
         else
         {
             slot3.GetComponent<RawImage>().texture = active;
             slot1.GetComponent<RawImage>().texture = unactive;
             slot2.GetComponent<RawImage>().texture = unactive;
-            if (interactor.items[2] != GameObject.Find("GameObject (2)"))
+            if (interactor.items[2] == GameObject.Find("GameObject (2)"))
             {
-                item3.GetComponent<RawImage>().texture = Resources.Load<Texture2D>(interactor.items[2].tag);
+                item3.GetComponent<RawImage>().texture = Resources.Load<Texture2D>("slotBorder");
             }
-            else item3.GetComponent<RawImage>().texture = Resources.Load<Texture2D>("slotBorder");
+            else
+            {
+                try
+                {
+                    item3.GetComponent<RawImage>().texture = Resources.Load<Texture2D>(interactor.items[2].tag);
+                }
+                catch { }
+            }
         }
     }
 }
