@@ -57,13 +57,13 @@ public class Jason : MonoBehaviour
         if (transform.position.x-2 < walkPoint.x && transform.position.x + 2 > walkPoint.x && transform.position.z == walkPoint.z) walkPointSet = false;
 
         var distance = Vector3.Distance(playerPosition.position, transform.position);
-        /*print("distance: "+distance);
+        print("distance: "+distance);
         print("jason rotation: " + transform.eulerAngles.y);
-        print("speed: " + navMeshAgent.speed);*/
+        print("speed: " + navMeshAgent.speed);
 
 
         //check if player is in sight range
-        if (distance <= 80)
+        if (distance <= 50)
         {
             if (transform.eulerAngles.y > 210 && transform.eulerAngles.y < 330 && (playerPosition.position.x - transform.position.x) < 0) playerInSightRange = true;
             else if (transform.eulerAngles.y > 30 && transform.eulerAngles.y < 150 && (playerPosition.position.x - transform.position.x) > 0) playerInSightRange = true;

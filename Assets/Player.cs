@@ -25,21 +25,26 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        move.x = Input.GetAxis("Horizontal");
-        move.z = Input.GetAxis("Vertical");
-
-        float x = Input.GetAxis("Mouse Y");
-        float y = Input.GetAxis("Mouse X");
-
-        kameraRotation = new Vector3(x, 0, 0);
-        rotate = new Vector3(0, y, 0);
-        transform.Rotate(rotate * Time.deltaTime * ROTATIONSPEED);
-        if (kamera.transform.eulerAngles.x > 45f && kamera.transform.eulerAngles.x < 270f)
+        if (!PauseMenu.GameIsPause)
         {
-            kameraRotation = new Vector3(kamera.transform.eulerAngles.x - 45f, 0, 0);
+            move.x = Input.GetAxis("Horizontal");
+            move.z = Input.GetAxis("Vertical");
+
+            float x = Input.GetAxis("Mouse Y");
+            float y = Input.GetAxis("Mouse X");
+
+            kameraRotation = new Vector3(x, 0, 0);
+            rotate = new Vector3(0, y, 0);
+            transform.Rotate(rotate * Time.deltaTime * ROTATIONSPEED);
+            if (kamera.transform.eulerAngles.x > 45f && kamera.transform.eulerAngles.x < 270f)
+            {
+                kameraRotation = new Vector3(kamera.transform.eulerAngles.x - 45f, 0, 0);
+            }
+
+            kamera.transform.eulerAngles -= kameraRotation;
+            Cursor.lockState = CursorLockMode.Locked;
         }
 
-        kamera.transform.eulerAngles -= kameraRotation;
 
         if (fill > 0.3f && Input.GetKey(KeyCode.LeftShift)) canRun = true;
         else if (fill == 0) canRun = false;
@@ -62,7 +67,7 @@ public class Player : MonoBehaviour
         }
         mask.fillAmount = fill;
 
-        move = transform.TransformDirection(move);
+        move = transform.TransformDirection(move).normalized;
         characterController.Move(SPEED * Time.deltaTime * move);
 
         if (!characterController.isGrounded)
