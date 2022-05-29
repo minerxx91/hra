@@ -13,12 +13,14 @@ public class Interactor : MonoBehaviour
     [SerializeField] GameObject player;
     [SerializeField] GameObject models3d;
     [SerializeField] GameObject hand;
+    [SerializeField] Jason jason;
     GameObject lastCollider;
     Animator animator;
     void Start()
     {
         hotbar = hotbarUI.GetComponent<Hotbar>();
         animator = GetComponent<Animator>();
+
     }
 
     void Update()
@@ -94,17 +96,21 @@ public class Interactor : MonoBehaviour
                         items[2] = hit.collider.gameObject;
                     }
                     
-                    if (items[hotbar.activeSlot].tag == "Spray" && hit.collider.gameObject.name == "Jason")
+                    if (items[hotbar.activeSlot].tag == "Spray" && hit.collider.gameObject.name == "Jason" && hit.distance < 5f)
                     {
                         Destroy(items[hotbar.activeSlot]);
                         items[hotbar.activeSlot] = GameObject.Find(string.Format("GameObject ({0})", hotbar.activeSlot));
                         GameObject.Find(string.Format("GameObject ({0})", hotbar.activeSlot)).transform.parent = null;
+                        jason.Stun = true;
+                        print("stun" + jason.Stun);
                     }
-                    else if (items[hotbar.activeSlot].tag == "Bat" && hit.collider.gameObject.name == "Jason")
+                    else if (items[hotbar.activeSlot].tag == "Bat" && hit.collider.gameObject.name == "Jason" && hit.distance < 5f)
                     {
                         Destroy(items[hotbar.activeSlot]);
                         items[hotbar.activeSlot] = GameObject.Find(string.Format("GameObject ({0})", hotbar.activeSlot));
                         GameObject.Find(string.Format("GameObject ({0})", hotbar.activeSlot)).transform.parent = null;
+                        jason.Stun = true;
+                        print("stun" + jason.Stun);
                     }
                 }
             }
@@ -139,5 +145,6 @@ public class Interactor : MonoBehaviour
             }
         }
         catch { }
+        
     }
 }

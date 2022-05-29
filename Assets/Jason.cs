@@ -17,7 +17,10 @@ public class Jason : MonoBehaviour
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
 
-    private NavMeshAgent navMeshAgent;
+    public NavMeshAgent navMeshAgent;
+    public bool Stun;
+    float StunTime = 5f;
+    float walkTime = 0f;
 
     private void Patroling()
     {
@@ -29,7 +32,6 @@ public class Jason : MonoBehaviour
             walkTime = 0f;
         }
         navMeshAgent.destination = walkPoint;
-        
     }
 
     private void Chasing()
@@ -44,12 +46,12 @@ public class Jason : MonoBehaviour
     {
 
     }
-
-     float walkTime = 0f;
+     
 
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
+        Stun = false;
     }
 
     void Update()
@@ -57,9 +59,9 @@ public class Jason : MonoBehaviour
         if (transform.position.x-2 < walkPoint.x && transform.position.x + 2 > walkPoint.x && transform.position.z == walkPoint.z) walkPointSet = false;
 
         var distance = Vector3.Distance(playerPosition.position, transform.position);
-        print("distance: "+distance);
+        /*print("distance: "+distance);
         print("jason rotation: " + transform.eulerAngles.y);
-        print("speed: " + navMeshAgent.speed);
+        print("speed: " + navMeshAgent.speed);*/
 
 
         //check if player is in sight range
@@ -86,5 +88,24 @@ public class Jason : MonoBehaviour
         if (walkTime > 2f && navMeshAgent.velocity.magnitude == 0) walkPointSet = false;
 
         walkTime += Time.deltaTime;
+        /*print("stun: "+Stun);
+        print("stun time: " + StunTime);
+        print("navmesh: " + navMeshAgent.enabled);*/
+        if (Stun)
+        {
+            StunTime = 0f;
+            Stun = false;
+            print("stuned");
+        }
+        print(Stun);
+        if (StunTime < 5f)
+        {
+            StunTime += Time.deltaTime;
+            navMeshAgent.enabled = false;
+            print("stun time: " + StunTime);
+        }
+        else navMeshAgent.enabled = true;
+        //print("navmesh: " + navMeshAgent.enabled);
+
     }
 }
