@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using UnityEditor;
 
 public class Interactor : MonoBehaviour
 {
@@ -14,8 +15,10 @@ public class Interactor : MonoBehaviour
     [SerializeField] GameObject models3d;
     [SerializeField] GameObject hand;
     [SerializeField] Jason jason;
+    [SerializeField] Manager manager;
     GameObject lastCollider;
     Animator animator;
+
     void Start()
     {
         hotbar = hotbarUI.GetComponent<Hotbar>();
@@ -102,7 +105,8 @@ public class Interactor : MonoBehaviour
                         items[hotbar.activeSlot] = GameObject.Find(string.Format("GameObject ({0})", hotbar.activeSlot));
                         GameObject.Find(string.Format("GameObject ({0})", hotbar.activeSlot)).transform.parent = null;
                         jason.Stun = true;
-                        print("stun" + jason.Stun);
+                        manager.clip = (AudioClip)AssetDatabase.LoadAssetAtPath("Assets/Audio/spray.mp3", typeof(AudioClip));
+                        manager.source.PlayOneShot(manager.clip);
                     }
                     else if (items[hotbar.activeSlot].tag == "Bat" && hit.collider.gameObject.name == "Jason" && hit.distance < 5f)
                     {
@@ -110,7 +114,8 @@ public class Interactor : MonoBehaviour
                         items[hotbar.activeSlot] = GameObject.Find(string.Format("GameObject ({0})", hotbar.activeSlot));
                         GameObject.Find(string.Format("GameObject ({0})", hotbar.activeSlot)).transform.parent = null;
                         jason.Stun = true;
-                        print("stun" + jason.Stun);
+                        manager.clip = (AudioClip)AssetDatabase.LoadAssetAtPath("Assets/Audio/bat.mp3", typeof(AudioClip));
+                        manager.source.PlayOneShot(manager.clip);
                     }
                 }
             }

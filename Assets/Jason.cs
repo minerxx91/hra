@@ -9,6 +9,7 @@ public class Jason : MonoBehaviour
     public Vector3 walkPoint;
     bool walkPointSet;
     LayerMask whatIsPlayer;
+    Animator animator;
 
     public float timeBetweenAttacks;
     bool alreadyAttacked;
@@ -36,10 +37,15 @@ public class Jason : MonoBehaviour
 
     private void Chasing()
     {
-        navMeshAgent.speed = 7f;
-        walkPoint = playerPosition.position;
-        navMeshAgent.destination = walkPoint;
-        walkPointSet = false;
+        try
+        {
+            navMeshAgent.speed = 7f;
+            walkPoint = playerPosition.position;
+            navMeshAgent.destination = walkPoint;
+
+            walkPointSet = false;
+        }
+        catch { }
     }
 
     private void Attacking()
@@ -52,6 +58,7 @@ public class Jason : MonoBehaviour
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         Stun = false;
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -80,11 +87,14 @@ public class Jason : MonoBehaviour
         if (distance <= 1)
             playerInAttackRange = true;
         else playerInAttackRange = false;
-        
 
-        if (!playerInAttackRange && !playerInSightRange) Patroling();
-        else if (!playerInAttackRange && playerInSightRange) Chasing();
-        else if (playerInAttackRange && playerInSightRange) Attacking();
+        try
+        {
+            if (!playerInAttackRange && !playerInSightRange) Patroling();
+            else if (!playerInAttackRange && playerInSightRange) Chasing();
+            else if (playerInAttackRange && playerInSightRange) Attacking();
+        }
+        catch { }
         if (walkTime > 2f && navMeshAgent.velocity.magnitude == 0) walkPointSet = false;
 
         walkTime += Time.deltaTime;
@@ -95,16 +105,19 @@ public class Jason : MonoBehaviour
         {
             StunTime = 0f;
             Stun = false;
-            print("stuned");
         }
-        print(Stun);
+
         if (StunTime < 5f)
         {
             StunTime += Time.deltaTime;
             navMeshAgent.enabled = false;
-            print("stun time: " + StunTime);
+            animator.SetBool("isWalking", false);
         }
-        else navMeshAgent.enabled = true;
+        else
+        {
+            navMeshAgent.enabled = true;
+            animator.SetBool("isWalking", true);
+        }
         //print("navmesh: " + navMeshAgent.enabled);
 
     }

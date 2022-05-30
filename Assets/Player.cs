@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEditor;
 
 public class Player : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class Player : MonoBehaviour
     [SerializeField] float SPEED = 10f;
     [SerializeField] float ROTATIONSPEED = 300f;
     [SerializeField] Image mask;
+    [SerializeField] Manager manager;
     float fill = 1;
     bool canRun;
     Vector3 move;
@@ -49,7 +51,10 @@ public class Player : MonoBehaviour
         if (fill > 0.3f && Input.GetKey(KeyCode.LeftShift)) canRun = true;
         else if (fill == 0) canRun = false;
 
-        if (Input.GetKey(KeyCode.S)) canRun = false;
+        if (Input.GetKey(KeyCode.S))
+        {
+            canRun = false;
+        }
 
         if (Input.GetKey(KeyCode.LeftShift) && canRun)
         {
@@ -79,7 +84,34 @@ public class Player : MonoBehaviour
         {
             animator.SetBool("isWalking", false);
         }
-        else animator.SetBool("isWalking", true);
+        else
+        {
+            animator.SetBool("isWalking", true);
+        }
 
+        if (animator.GetBool("isWalking"))
+        {
+            manager.clip = (AudioClip)AssetDatabase.LoadAssetAtPath("Assets/Audio/steps.wav", typeof(AudioClip));
+            manager.source.pitch = 1f;
+            if (!manager.source.isPlaying)
+            {
+                manager.source.PlayOneShot(manager.clip);
+            }
+        }
+
+        if (!animator.GetBool("isWalking"))
+        {
+            manager.source.Stop();
+        }
+
+        if (animator.GetBool("isRunning"))
+        {
+            manager.clip = (AudioClip)AssetDatabase.LoadAssetAtPath("Assets/Audio/steps.wav", typeof(AudioClip));
+            manager.source.pitch = 2f;
+            if (!manager.source.isPlaying)
+            {
+                manager.source.PlayOneShot(manager.clip);
+            }
+        }
     }
 }
