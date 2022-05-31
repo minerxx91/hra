@@ -15,7 +15,8 @@ public class Interactor : MonoBehaviour
     [SerializeField] GameObject models3d;
     [SerializeField] GameObject hand;
     [SerializeField] Jason jason;
-    [SerializeField] Manager manager;
+    [SerializeField] AudioSource source;
+    [SerializeField] AudioClip clip;
     GameObject lastCollider;
     Animator animator;
 
@@ -55,7 +56,6 @@ public class Interactor : MonoBehaviour
                     if (hit.collider.gameObject.name == "Pick-Up old" && items[hotbar.activeSlot].tag == "Jerry Can")
                     {
                         hit.collider.gameObject.SetActive(false);
-                        onInteract.Invoke();
                         items[hotbar.activeSlot].SetActive(false);
                     }
                     if (hit.collider.gameObject.tag == "Jerry Can")
@@ -105,8 +105,8 @@ public class Interactor : MonoBehaviour
                         items[hotbar.activeSlot] = GameObject.Find(string.Format("GameObject ({0})", hotbar.activeSlot));
                         GameObject.Find(string.Format("GameObject ({0})", hotbar.activeSlot)).transform.parent = null;
                         jason.Stun = true;
-                        manager.clip = (AudioClip)AssetDatabase.LoadAssetAtPath("Assets/Audio/spray.mp3", typeof(AudioClip));
-                        manager.source.PlayOneShot(manager.clip);
+                        clip = (AudioClip)AssetDatabase.LoadAssetAtPath("Assets/Audio/spray.mp3", typeof(AudioClip));
+                        source.PlayOneShot(clip);
                     }
                     else if (items[hotbar.activeSlot].tag == "Bat" && hit.collider.gameObject.name == "Jason" && hit.distance < 5f)
                     {
@@ -114,8 +114,8 @@ public class Interactor : MonoBehaviour
                         items[hotbar.activeSlot] = GameObject.Find(string.Format("GameObject ({0})", hotbar.activeSlot));
                         GameObject.Find(string.Format("GameObject ({0})", hotbar.activeSlot)).transform.parent = null;
                         jason.Stun = true;
-                        manager.clip = (AudioClip)AssetDatabase.LoadAssetAtPath("Assets/Audio/bat.mp3", typeof(AudioClip));
-                        manager.source.PlayOneShot(manager.clip);
+                        clip = (AudioClip)AssetDatabase.LoadAssetAtPath("Assets/Audio/bat.mp3", typeof(AudioClip));
+                        source.PlayOneShot(clip);
                     }
                 }
             }
