@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
             float x = Input.GetAxis("Mouse Y");
             float y = Input.GetAxis("Mouse X");
 
-            kameraRotation = new Vector3(x, 0, 0);
+            kameraRotation = new Vector3(x, 0f, 0f);
             rotate = new Vector3(0, y, 0);
             transform.Rotate(rotate * Time.deltaTime * ROTATIONSPEED);
             if (kamera.transform.eulerAngles.x > 45f && kamera.transform.eulerAngles.x < 270f)
@@ -56,7 +56,7 @@ public class Player : MonoBehaviour
             canRun = false;
         }
 
-        if (Input.GetKey(KeyCode.LeftShift) && canRun)
+        if (Input.GetKey(KeyCode.LeftShift) && canRun && move.z > 0f)
         {
             animator.SetBool("isRunning", true);
             SPEED = 10f;

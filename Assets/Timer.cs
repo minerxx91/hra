@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Timer : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class Timer : MonoBehaviour
     {
         minutes = Mathf.FloorToInt(Time.timeSinceLevelLoad / 60);
         seconds = Mathf.FloorToInt(Time.timeSinceLevelLoad % 60);
-        minutesLeft = 19 - minutes;
+        minutesLeft = 9 - minutes;
         secondsLeft = 59 - seconds;
         if(secondsLeft < 0)
         {
@@ -27,5 +28,10 @@ public class Timer : MonoBehaviour
         }
         string time = string.Format("{0:00}:{1:00}", minutesLeft, secondsLeft);
         timer.text = time;
+
+        if(minutes >= 10)
+        {
+            SceneManager.LoadScene("Menu");
+        }
     }
 }

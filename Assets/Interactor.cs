@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityEditor;
+using UnityEngine.SceneManagement;
 
 public class Interactor : MonoBehaviour
 {
@@ -57,6 +58,7 @@ public class Interactor : MonoBehaviour
                     {
                         hit.collider.gameObject.SetActive(false);
                         items[hotbar.activeSlot].SetActive(false);
+                        SceneManager.LoadScene("Menu");
                     }
                     if (hit.collider.gameObject.tag == "Jerry Can")
                     {
