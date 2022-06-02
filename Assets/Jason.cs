@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEditor;
 
 public class Jason : MonoBehaviour
 {
     [SerializeField] private Transform playerPosition;
+    [SerializeField] AudioSource source;
     public Vector3 walkPoint;
     bool walkPointSet;
     LayerMask whatIsPlayer;
@@ -44,6 +46,11 @@ public class Jason : MonoBehaviour
             navMeshAgent.destination = walkPoint;
 
             walkPointSet = false;
+
+            if (!source.isPlaying)
+            {
+                source.PlayOneShot((AudioClip)AssetDatabase.LoadAssetAtPath("Assets/Audio/roar.mp3", typeof(AudioClip)));
+            }
         }
         catch { }
     }
@@ -59,6 +66,8 @@ public class Jason : MonoBehaviour
         navMeshAgent = GetComponent<NavMeshAgent>();
         Stun = false;
         animator = GetComponent<Animator>();
+        source.pitch = 0.7f;
+        source.volume = 0.2f;
     }
 
     void Update()
