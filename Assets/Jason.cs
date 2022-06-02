@@ -15,7 +15,7 @@ public class Jason : MonoBehaviour
     bool walkPointSet;
     LayerMask whatIsPlayer;
     Animator animator;
-    bool attack = false;
+    public bool attack = false;
     float attackTime = 0f;
 
     public float timeBetweenAttacks;
@@ -65,8 +65,8 @@ public class Jason : MonoBehaviour
         attack = true;
         player.transform.SetParent(hand.transform, true);
         player.GetComponent<CharacterController>().enabled = false;
-        player.transform.localPosition = new Vector3(-0.839999974f, -0.0900000036f, 0.910000026f);
-        player.transform.localRotation = Quaternion.Euler(79.3000336f, 170.300003f, 34.6000137f);
+        player.transform.localPosition = new Vector3(-1.22000003f, 0.0900000036f, -0.150000006f);
+        player.transform.localRotation = Quaternion.Euler(79.3000336f, 170.300003f, 90f);
     }
      
 
@@ -143,6 +143,7 @@ public class Jason : MonoBehaviour
 
         if (attack)
         {
+            animator.SetBool("isGrabbing", true);
             if (attackTime > 5) SceneManager.LoadScene("Menu");
             else attackTime += Time.deltaTime;
         }

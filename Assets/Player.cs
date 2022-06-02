@@ -12,11 +12,12 @@ public class Player : MonoBehaviour
     [SerializeField] Image mask;
     [SerializeField] Manager manager;
     float fill = 1;
-    bool canRun;
+    public bool canRun;
     Vector3 move;
     Vector3 kameraRotation;
     Vector3 rotate;
-    Animator animator;
+    public Animator animator;
+    Jason jason;
     CharacterController characterController;
     void Start()
     {
@@ -55,42 +56,46 @@ public class Player : MonoBehaviour
         if (fill > 0.3f && Input.GetKey(KeyCode.LeftShift)) canRun = true;
         else if (fill == 0) canRun = false;
 
-        if (Input.GetKey(KeyCode.S))
-        {
-            canRun = false;
-        }
 
-        if (Input.GetKey(KeyCode.LeftShift) && canRun && move.z > 0f)
+        if (characterController.enabled)
         {
-            animator.SetBool("isRunning", true);
-            SPEED = 10f;
-            fill -= Time.deltaTime / 10;
-            if (fill < 0f) fill = 0f;
-        }
-        else
-        {
-            animator.SetBool("isRunning", false);
-            SPEED = 5f;
-            fill += Time.deltaTime / 5;
-            if (fill > 1f) fill = 1f;
-        }
-        mask.fillAmount = fill;
+            if (Input.GetKey(KeyCode.S))
+            {
+                canRun = false;
+            }
 
-        move = transform.TransformDirection(move).normalized;
-        characterController.Move(SPEED * Time.deltaTime * move);
+            if (Input.GetKey(KeyCode.LeftShift) && canRun && move.z > 0f)
+            {
+                animator.SetBool("isRunning", true);
+                SPEED = 10f;
+                fill -= Time.deltaTime / 10;
+                if (fill < 0f) fill = 0f;
+            }
+            else
+            {
+                animator.SetBool("isRunning", false);
+                SPEED = 5f;
+                fill += Time.deltaTime / 5;
+                if (fill > 1f) fill = 1f;
+            }
+            mask.fillAmount = fill;
 
-        if (!characterController.isGrounded)
-            move.y -= 9.8f * Time.deltaTime;
-        else
-            move.y = 0f;
+            move = transform.TransformDirection(move).normalized;
+            characterController.Move(SPEED * Time.deltaTime * move);
 
-        if (move.x == 0 && move.z == 0)
-        {
-            animator.SetBool("isWalking", false);
-        }
-        else
-        {
-            animator.SetBool("isWalking", true);
+            if (!characterController.isGrounded)
+                move.y -= 9.8f * Time.deltaTime;
+            else
+                move.y = 0f;
+
+            if (move.x == 0 && move.z == 0)
+            {
+                animator.SetBool("isWalking", false);
+            }
+            else
+            {
+                animator.SetBool("isWalking", true);
+            }
         }
 
         if (animator.GetBool("isWalking"))
