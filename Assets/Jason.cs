@@ -3,15 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEditor;
+using UnityEngine.SceneManagement;
 
 public class Jason : MonoBehaviour
 {
     [SerializeField] private Transform playerPosition;
     [SerializeField] AudioSource source;
+    [SerializeField] GameObject hand;
+    [SerializeField] GameObject player;
     public Vector3 walkPoint;
     bool walkPointSet;
     LayerMask whatIsPlayer;
     Animator animator;
+    bool attack = false;
+    float attackTime = 0f;
 
     public float timeBetweenAttacks;
     bool alreadyAttacked;
@@ -57,7 +62,11 @@ public class Jason : MonoBehaviour
 
     private void Attacking()
     {
-
+        attack = true;
+        player.transform.SetParent(hand.transform, true);
+        player.GetComponent<CharacterController>().enabled = false;
+        player.transform.localPosition = new Vector3(-0.839999974f, -0.0900000036f, 0.910000026f);
+        player.transform.localRotation = Quaternion.Euler(79.3000336f, 170.300003f, 34.6000137f);
     }
      
 
@@ -96,15 +105,18 @@ public class Jason : MonoBehaviour
         if (distance <= 1)
             playerInAttackRange = true;
         else playerInAttackRange = false;
-
-        try
+        if (!attack)
         {
-            if (!playerInAttackRange && !playerInSightRange) Patroling();
-            else if (!playerInAttackRange && playerInSightRange) Chasing();
-            else if (playerInAttackRange && playerInSightRange) Attacking();
+            try
+            {
+                if (!playerInAttackRange && !playerInSightRange) Patroling();
+                else if (!playerInAttackRange && playerInSightRange) Chasing();
+                else if (playerInAttackRange && playerInSightRange) Attacking();
+            }
+            catch { }
+            if (walkTime > 2f && navMeshAgent.velocity.magnitude == 0) walkPointSet = false;
         }
-        catch { }
-        if (walkTime > 2f && navMeshAgent.velocity.magnitude == 0) walkPointSet = false;
+        
 
         walkTime += Time.deltaTime;
         /*print("stun: "+Stun);
@@ -128,6 +140,12 @@ public class Jason : MonoBehaviour
             animator.SetBool("isWalking", true);
         }
         //print("navmesh: " + navMeshAgent.enabled);
+
+        if (attack)
+        {
+            if (attackTime > 5) SceneManager.LoadScene("Menu");
+            else attackTime += Time.deltaTime;
+        }
 
     }
 }

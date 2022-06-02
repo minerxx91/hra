@@ -35,15 +35,19 @@ public class Player : MonoBehaviour
             float x = Input.GetAxis("Mouse Y");
             float y = Input.GetAxis("Mouse X");
 
-            kameraRotation = new Vector3(x, 0f, 0f);
-            rotate = new Vector3(0, y, 0);
-            transform.Rotate(rotate * Time.deltaTime * ROTATIONSPEED);
-            if (kamera.transform.eulerAngles.x > 45f && kamera.transform.eulerAngles.x < 270f)
+            
+            if (characterController.enabled)
             {
-                kameraRotation = new Vector3(kamera.transform.eulerAngles.x - 45f, 0, 0);
+                kameraRotation = new Vector3(x, 0f, 0f);
+                rotate = new Vector3(0, y, 0);
+                transform.Rotate(rotate * Time.deltaTime * ROTATIONSPEED);
+                if (kamera.transform.eulerAngles.x > 45f && kamera.transform.eulerAngles.x < 270f)
+                {
+                    kameraRotation = new Vector3(kamera.transform.eulerAngles.x - 45f, 0, 0);
+                }
+                kamera.transform.eulerAngles -= kameraRotation;
             }
 
-            kamera.transform.eulerAngles -= kameraRotation;
             Cursor.lockState = CursorLockMode.Locked;
         }
 
